@@ -10,12 +10,11 @@ sudo apt-get upgrade -y
 # Install core tools
 echo "Installing tools"
 sudo apt-get install -y vim git tree tmux
-sudo apt-get install -y python-pip python3-pip
 
 # configure git 
 echo "Configuring git"
 git config --global user.name "Toby W"
-git config --global user.email "foo@bar.com"
+git config --global user.email "toby@wilkins.io"
 git config --global core.editor "vim"
 
 echo "Sourcing files"
