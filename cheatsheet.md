@@ -102,8 +102,11 @@ specific to my configuration
 
 # tmux
 
+    - Default leader is ctrl+b, then hotkey
+
     - Session managment
         - tmux ls                       List sessions
+        - tmux new -s <name>            create new session, with name
         - tmux a -t name                attach to session
         - tmux kill-session -t name     kill sesstion
         - leader + d                    detatch from within session
