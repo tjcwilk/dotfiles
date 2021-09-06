@@ -26,7 +26,6 @@ set foldmethod=indent   " Allow folding based on ident
 set foldlevel=20        " Auto unfold to level 20 (all)
 set visualbell          " Disable anying bell on WSL
 set colorcolumn=100      " guide ruler for line length
-"set spell               " Enable spellchecker
 filetype plugin on
 filetype indent on
 syntax on
@@ -58,8 +57,11 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " enable spelling for markdown. ctl+ N/P auto completes
-autocmd BufRead, BufNewFile *.md setlocal spell spelllang=en_gb
+" toggle spell check on off with F5
+:map <F5> :setlocal spell! spelllang=en_gb<CR>
+autocmd BufRead, BufNewFile *.md, *.txt setlocal spell spelllang=en_gb
 set complete+=kspell
+set spellfile=$HOME/Dropbox/folders/technology/vim_spell/en.utf-8.add
 
 " Line wrap for markdown
 au BufRead,BufNewFile *.md setlocal textwidth=100
