@@ -88,9 +88,12 @@ specific to my configuration
         - ctrl + o/i                    jump forward/back files in history
 
     - spelling
+          f5                            toggle spell on/off (custom vimrc shortcut)
         - ]s and [s                     moves between mispelled words
         - z=                            shows spelling alternatives
         - zg                            adds word to dictionary
+
+        aspell  -c <file>               check spelling from the comand line
 
     - VimWiki
         - L,ww                          Go to Vimwiki homepage
