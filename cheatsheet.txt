@@ -50,6 +50,7 @@ Nerd Tree
 
 
 panes
+
     - ctrl+w                        The window shortcut
     - ctrl+w+v                      open vertical
     - ctrl+w+s                      open horizontal
@@ -62,12 +63,14 @@ panes
 
 
 tabs
+
     - nerd tree + t                 t opens file in new tab
     - g t                           next tab
     - g T                           previouse tab.
 
 
 Moving around
+
     - Vertical
         - { or }                    Up / Down paragraph
         - Ctrl d/u                  up/down in page
@@ -79,11 +82,13 @@ Moving around
 
 
 insert
+
     - i                             insert mode at current place
     - A                             insert mode at end of line
 
 
 moving text
+
     - v                             enters visual mode
     - y                             yank, copies the text
     - d                             delete, but it also cuts
@@ -95,32 +100,37 @@ moving text
 
 
 serching and replace
+
     - :%s/foo/bar/g                 find all foo, and replace with bar
     - :%s/foo/bar/gc                same, but confirm before all replace
     - s/foo/bar/g                   find foo on current line, and replace with bar
 
 
-- Files and folders
+Files and folders
+
     - :Files or ctrl_p              Opens FZF
     - ctrl+shuft+^                  toggles between last two files
     - ctrl + o/i                    jump forward/back files in history
 
 
 spelling
-        f5                            toggle spell on/off (custom vimrc shortcut)
+
+    - f5                            toggle spell on/off (custom vimrc shortcut)
     - ]s and [s                     moves between mispelled words
     - z=                            shows spelling alternatives
     - zg                            adds word to dictionary
 
-    aspell  -c <file>               check spelling from the comand line
+    - aspell  -c <file>               check spelling from the comand line
 
 
 VimWiki
+
     - L,ww                          Go to Vimwiki homepage
     - L,w,L,w                       Go to todays diary page
     - :Diary                        Go to diary index page
 
 Misc
+``
     - gqG                           move to top of file (gg), then word wrap
 
 
@@ -130,6 +140,7 @@ Misc
 - Default leader is ctrl+b, then hotkey
 
 Session managment
+
     - tmux ls                       List sessions
     - tmux new -s <name>            create new session, with name
     - tmux a -t name                attach to session
@@ -140,7 +151,9 @@ Session managment
 
 - General Disconnect                      hotkey + d
 
+
 Windows
+
     - New window                    hotkey + c
     - Kill window                   hotkey + &
     - Rename window                 hotkey + ,
@@ -150,6 +163,7 @@ Windows
 
 
 Pains
+
     - Kill pain                     hotkey + x
     - New vertical                  hotkey + |
     - New horizontal                hotkey + -

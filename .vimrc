@@ -95,7 +95,7 @@ Plug 'jiangmiao/auto-pairs'         " auto closes brackets
 Plug 'airblade/vim-gitgutter'       " Show git status on the left.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter'          " Sets fzf root to gitfile
+Plug 'airblade/vim-rooter'          " Sets fzf root to gitfilej
 call plug#end()
 " Reload .vimrc and :PlugInstall to install plugins
 " --------------------------------- PLUGINS END ---------------------------------------------------
