@@ -80,7 +80,7 @@ sudo apt autoremove -y
 
 # Install core tools
 echo "Installing core tools"
-sudo apt install -y vim tree tmux neofetch curl
+sudo apt install -y vim tree tmux neofetch curl multitail
 
 # create dotfile symlinks
 symlinkDotFiles
