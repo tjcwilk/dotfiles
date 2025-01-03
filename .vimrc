@@ -127,6 +127,6 @@ command! -bang -nargs=* Rg
 
 " colours
 set background=dark
-colorscheme darkblue
+"colorscheme darkblue
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 let g:airline_theme='simple'
