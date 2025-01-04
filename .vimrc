@@ -20,13 +20,13 @@ set laststatus=2
 set ignorecase
 "set mouse=a
 set clipboard=unnamed
-set textwidth=80
+set textwidth=120
 set colorcolumn=+1
 set autoindent          " always set autoindenting on
 set foldmethod=indent   " Allow folding based on ident
 set foldlevel=20        " Auto unfold to level 20 (all)
 set visualbell          " Disable anying bell on WSL
-"set colorcolumn=80      " guide ruler for line length
+set colorcolumn=80      " guide ruler for line length
 filetype plugin on
 filetype indent on
 syntax on
@@ -96,6 +96,7 @@ Plug 'airblade/vim-gitgutter'       " Show git status on the left.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'          " Sets fzf root to gitfilej
+Plug 'morhetz/gruvbox'              " gruvbox color theme
 call plug#end()
 " Reload .vimrc and :PlugInstall to install plugins
 " --------------------------------- PLUGINS END ---------------------------------------------------
@@ -127,6 +128,6 @@ command! -bang -nargs=* Rg
 
 " colours
 set background=dark
-"colorscheme darkblue
+colorscheme gruvbox
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 let g:airline_theme='simple'
