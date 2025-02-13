@@ -1,311 +1,82 @@
-"$schema" = 'https://starship.rs/config-schema.json'
+# Don't print a new line at the start of the prompt
+add_newline = false
 
-# colors
-# #3960A7 - dark blue
-# #659CD9 - mid blue
-# #4A4A4A - dary grey
-# #F2F2F2 - near white
-# #9C9C9C - mid gray
+# Use custom format
+format = """
+[╭─](white)$username$hostname in $directory$package$java$python$git_branch$battery$cmd_duration
+[╰─](white)$character """
 
-format = """\
-[](fg:#659CD9)\
-$os\
-$sudo\
-$shell\
-[](fg:#659CD9 bg:#3960A7)\
-$directory\
-[](fg:#3960A7 bg:#9C9C9C)\
-$git_branch\
-$git_commit\
-$git_status\
-$git_state\
-[](fg:#9C9C9C bg:#F2F2F2)\
-($git_metrics)\
-[](fg:#F2F2F2)\
-$fill\
-$status\
-$all\
-$cmd_duration\
-$line_break\
-$character"""
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
 
-# disabled due to fill module
-# right_format = ''
-add_newline = true
-# command_timeout = 1000
-
-[line_break]
+# Username settings
+[username]
+show_always = true
+style_root = "bold red"
+style_user = "bold yellow"
+format = "[$user]($style) "
 disabled = false
 
-[fill]
-symbol = ' '
-
-[os]
-disabled = false
-format = '[$symbol]($style)'
-style = 'fg:#659CD9 bg:#F2F2F2 inverted'
-
-[os.symbols]
-Macos = " "
-Windows = " "
-Ubuntu = " "
-
-[sudo]
-disabled = false
-symbol = "🧙"
-format = '[$symbol ]($style)'
-style = "bg:#C2B4DF"
-
-[shell]
-disabled = false
-zsh_indicator = ''
-powershell_indicator = ''
-style = 'fg:#F2F2F2 bg:#659CD9'
-format = '[$indicator ]($style)'
-
-[directory]
-format = "[ \uf07c  $path ]($style)"
-style = "fg:#F2F2F2 bg:#3960A7"
-
-[git_branch]
-format = '[ $symbol$branch(:$remote_branch) ]($style)'
-symbol = "  "
-style = "fg:#1C3A5E bg:#9C9C9C"
-
-[git_status]
-format = '([\[$all_status$ahead_behind\]]($style))'
-style = "fg:#1C3A5E bg:#9C9C9C"
-
-[git_commit]
-disabled = false
-format = '[\((#$hash)$tag\)]($style)'
-tag_disabled = false
-only_detached = true
-style = "fg:#1C3A5E bg:#9C9C9C"
-
-[git_metrics]
-format = '([ +$added ]($added_style))([-$deleted ]($deleted_style))'
-added_style = "fg:#1C3A5E bg:#F2F2F2"
-deleted_style = "fg:red bg:#F2F2F2"
-disabled = false
-
-[cmd_duration]
-disabled = false
-format = "[[](fg:#5C7F6A)⏱️ $duration[](fg:#5C7F6A)]($style)"
-style = "#5C7F6A inverted"
-
-[character]
-disabled = false
-success_symbol = '[❯](bold #F2F2F2) '
-error_symbol = '[❯](bold red) '
-
-[time]
-disabled = true
-time_format = "%R"                                      # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[ 󱑍 $time ](bg:#1C3A5E fg:#8DFBD2)]($style)'
-
-[azure]
-disabled = false
-format = '[](fg:#3376CD)[$symbol($subscription)]($style)[](fg:#3376CD)'
-style = 'fg:#3376CD bold inverted'
-symbol = '󰠅 '
-
-[golang]
-disabled = true
-format = '[](fg:cyan)[$symbol($version )]($style)[](fg:cyan)'
-style = 'fg:cyan inverted'
-symbol = ' '
-
-[status]
-disabled = false
-symbol = '🔴 '
-success_symbol = ''
-format = '[$symbol( $common_meaning )$signal_name$maybe_int]($style) '
-map_symbol = true
-
-[terraform]
-symbol = '󱁢 '
-#format = '[](fg:105)[$symbol$version( $workspace)]($style)[](fg:105)'
-format = '[](fg:105)[$symbol]($style)[](fg:105)'
-style = 'fg:105 inverted'
-
+# Hostname settings
 [hostname]
-disabled = true
+ssh_only = false
+format =  "on [$hostname](bold red)"
+trim_at = ".companyname.com"
+disabled = false
 
-[kubernetes]
-disabled = true
+# Directory indicator
+[directory]
+read_only = "🔒"
+style = "bold cyan"
+read_only_style = "red"
+truncation_length = 8
+truncation_symbol = "…/"
+format = "[$read_only]($read_only_style)[$path]($style) "
+disabled = false
 
-[pulumi]
-disabled = true
-
-[aws]
-disabled = true
-
-[buf]
-disabled = true
-
-[bun]
-disabled = true
-
-[c]
-disabled = true
-
-[cmake]
-disabled = true
-
-[cobol]
-disabled = true
-
-[conda]
-disabled = true
-
-[crystal]
-disabled = true
-
-[daml]
-disabled = true
-
-[dart]
-disabled = true
-
-[deno]
-disabled = true
-
-[elixir]
-disabled = true
-
-[elm]
-disabled = true
-
-[erlang]
-disabled = true
-
-[fennel]
-disabled = true
-
-[gcloud]
-disabled = true
-
-[guix_shell]
-disabled = true
-
-[gradle]
-disabled = true
-
-[haskell]
-disabled = true
-
-[haxe]
-disabled = true
-
-[helm]
-disabled = true
-
-[java]
-disabled = true
-
-[jobs]
-disabled = true
-
-[julia]
-disabled = true
-
-[kotlin]
-disabled = true
-
-[localip]
-disabled = true
-
-[lua]
-disabled = true
-
-[meson]
-disabled = true
-
-[nim]
-disabled = true
-
-[nix_shell]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[ocaml]
-disabled = true
-
-[opa]
-disabled = true
-
-[openstack]
-disabled = true
-
+# Package Version Config
 [package]
-disabled = true
+format = "via [🎁 $version](208 bold) "
 
-[perl]
-disabled = true
+# Java settings
+[java]
+symbol = "☕ "
+style = "red dimmed"
+format = "via [${symbol}${version}]($style) "
 
-[php]
-disabled = true
-
-[pijul_channel]
-disabled = true
-
-[purescript]
-disabled = true
-
+# Python settings
 [python]
-disabled = true
+symbol = "🐍 "
+style = "yellow bold"
+python_binary = "python3"
+pyenv_version_name = true
 
-[quarto]
-disabled = true
+# git settings
+[git_branch]
+symbol = "🌱 "
+truncation_length = 4
+truncation_symbol = ""
 
-[rlang]
-disabled = true
+# Battery information
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
 
-[raku]
-disabled = true
+[[battery.display]]
+threshold = 10
+style = "bold red"
 
-[red]
-disabled = true
+# cmd_duration config
+[cmd_duration]
+show_milliseconds = true
+style = "bold yellow"
+format = "took [$duration]($style)"
 
-[ruby]
-disabled = true
-
-[rust]
-disabled = true
-
-[scala]
-disabled = true
-
-[shlvl]
-disabled = true
-
-[singularity]
-disabled = true
-
-[solidity]
-disabled = true
-
-[spack]
-disabled = true
-
-[swift]
-disabled = true
-
-[typst]
-disabled = true
-
-[vagrant]
-disabled = true
-
-[vlang]
-disabled = true
-
-[vcsh]
-disabled = true
-
-[zig]
-disabled = true
+# Charakter config
+[character]
+format = "$symbol"
+success_symbol = "[❯](bold green)"
+error_symbol = "[✗](bold red) "
+vicmd_symbol = "[❮](bold green)"
+disabled = false
