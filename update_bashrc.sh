@@ -4,6 +4,9 @@ cat <<'EOF' >> ~/.bashrc
 
 # My custom bashrc settings
 
+# Environment variables
+export STARSHIP_CONFIG=/home/toby/repos/dotfiles/starship/starship.toml
+
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'

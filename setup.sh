@@ -65,7 +65,10 @@ installStarship() {
 }
 
 
-
+installVimPlug(){
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
 
 
 ##########################################################
@@ -80,7 +83,13 @@ sudo apt autoremove -y
 
 # Install core tools
 echo "Installing core tools"
-sudo apt install -y vim tree tmux neofetch curl multitail
+sudo apt install -y vim tree tmux neofetch curl multitail unzip
+
+# configure git
+echo "Configuring git"
+git config --global user.name "Toby W"
+git config --global user.email "toby@null"
+git config --global core.editor "vim"
 
 # create dotfile symlinks
 symlinkDotFiles
@@ -88,6 +97,7 @@ symlinkDotFiles
 # Install functions
 installGit
 installStarship
+installVimPlug
 
 # Source files
 echo "Sourcing files"
