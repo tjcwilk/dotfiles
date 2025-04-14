@@ -1,12 +1,12 @@
 Host personal.github.com
     User git
     HostName github.com
-    IdentityFile ~/.ssh/personal_key
+    IdentityFile ~/.ssh/personal
 
 Host work.github.com
     User git	
     HostName github.com
-    IdentityFile  ~/.ssh/personal_key
+    IdentityFile  ~/.ssh/work
 
 Host wireguard
     HostName wireguard.tobynet.local 
