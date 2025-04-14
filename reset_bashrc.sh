@@ -17,4 +17,3 @@ awk -v pattern="$SEARCH_STRING" '
 ' "$FILE" > tmp_file && mv tmp_file "$FILE"
 
 echo "All lines after '$SEARCH_STRING' have been deleted in '$FILE'."
-

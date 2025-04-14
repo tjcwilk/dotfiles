@@ -96,7 +96,6 @@ Plug 'airblade/vim-gitgutter'       " Show git status on the left.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'          " Sets fzf root to gitfilej
-Plug 'morhetz/gruvbox'              " gruvbox color theme
 call plug#end()
 " Reload .vimrc and :PlugInstall to install plugins
 " --------------------------------- PLUGINS END ---------------------------------------------------
@@ -129,6 +128,5 @@ command! -bang -nargs=* Rg
 " colours
 set background=dark
 "highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
-colorscheme gruvbox
 
 let g:airline_theme='simple'
