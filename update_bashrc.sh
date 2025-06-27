@@ -5,7 +5,7 @@ cat <<'EOF' >> ~/.bashrc
 # My custom bashrc settings
 
 # Environment variables
-export STARSHIP_CONFIG=/home/toby/repos/dotfiles/starship/starship.toml
+export STARSHIP_CONFIG=~/repos/dotfiles/starship/starship.toml
 
 # Change directory aliases
 alias home='cd ~'
@@ -27,7 +27,7 @@ alias less='less -R'
 alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
-
+alias top='htop'
 alias lsl='ls -l'
 
 # Remove a directory and all files
@@ -56,6 +56,10 @@ alias mkgz='tar -cvzf'
 alias untar='tar -xvf'
 alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
+
+# zoxide shortcut
+eval "$(zoxide init bash)"
+
 
 # alias to cleanup unused docker containers, images, networks, and volumes
 

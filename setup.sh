@@ -83,7 +83,19 @@ sudo apt autoremove -y
 
 # Install core tools
 echo "Installing core tools"
-sudo apt install -y vim tree tmux neofetch curl multitail unzip
+sudo apt install -y vim \
+    tree \
+    tmux \
+    neofetch \
+    curl \
+    multitail \
+    unzip \
+    htop \
+    python3-pip\
+    ncdu \
+    duf \
+    fzf \
+    zoxide
 
 # create dotfile symlinks
 symlinkDotFiles
@@ -99,4 +111,8 @@ tmux source ~/.tmux.conf
 source ~/.bashrc
 
 echo "!! DONE !!"
+echo "NEXT - consider running the bashrc update script"
+
+
+
 # Now go into a tmux session, eg with 'tmux new -s main'
