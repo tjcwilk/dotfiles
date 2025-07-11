@@ -6,6 +6,8 @@ First, edit your powershell launch profile using ``code %PROFILE``
 
 Inside this file, add the following:
 
-- ``Invoke-Expression (&starship init powershell)``
+```
+$ENV:STARSHIP_CONFIG = 'C:\Users\tjcwilk\local_files\repos\dotfiles\starship\starship.toml'
 
-- ``[System.Environment]::SetEnvironmentVariable('STARSHIP_CONFIG','C:\Users\tjcwilk\local_files\repos\dotfiles\starship\starship.toml', 'User')``
+Invoke-Expression (&starship init powershell)
+```
