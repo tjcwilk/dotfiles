@@ -13,14 +13,14 @@ scan_timeout = 10
 [username]
 show_always = true
 style_root = "bold red"
-style_user = "bold yellow"
+style_user = "bold blue"
 format = "[$user]($style) "
 disabled = false
 
 # Hostname settings
 [hostname]
 ssh_only = false
-format =  "on [$hostname](bold red)"
+format =  "on [$hostname](bold blue)"
 trim_at = ".companyname.com"
 disabled = false
 
