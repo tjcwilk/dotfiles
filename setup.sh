@@ -95,7 +95,13 @@ sudo apt install -y vim \
     ncdu \
     duf \
     fzf \
-    zoxide
+    zoxide \
+    progress \
+    unp
+
+echo "installing snap packages"
+sudo snap install procs
+
 
 # create dotfile symlinks
 symlinkDotFiles
