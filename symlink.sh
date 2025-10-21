@@ -5,9 +5,6 @@
 echo "Creating symbolic links"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
-echo "-> .vimrc"
-ln -sf $DIR/.vimrc ~/.vimrc
-
 echo "-> .tmux.conf"
 ln -sf $DIR/.tmux.conf ~/.tmux.conf
 

@@ -60,9 +60,7 @@ alias ungz='tar -xvzf'
 # zoxide shortcut
 eval "$(zoxide init bash)"
 
-
 # alias to cleanup unused docker containers, images, networks, and volumes
-
 alias docker-clean='docker container prune -f ; docker image prune -f ; docker network prune -f ; docker volume prune -f '
 
 # set up starship

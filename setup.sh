@@ -16,9 +16,6 @@ symlinkDotFiles(){
     echo "Creating symbolic links"
     DIR="$(cd "$(dirname "$0")" && pwd)"
 
-    echo "-> .vimrc"
-    ln -sf $DIR/.vimrc ~/.vimrc
-
     echo "-> .tmux.conf"
     ln -sf $DIR/.tmux.conf ~/.tmux.conf
 
@@ -48,7 +45,7 @@ installGit(){
     sudo apt install -y git
     git config --global user.name "Toby W"
     git config --global user.email "toby@null"
-    git config --global core.editor "vim"
+    git config --global core.editor "nvim"
 }
 
 
@@ -62,12 +59,6 @@ installStarship() {
         echo "${RED}Something went wrong during starship install!${RC}"
         exit 1
     fi
-}
-
-
-installVimPlug(){
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 
@@ -101,7 +92,6 @@ sudo apt install -y vim \
 
 echo "installing snap packages"
 sudo snap install procs
-
 
 # create dotfile symlinks
 symlinkDotFiles
