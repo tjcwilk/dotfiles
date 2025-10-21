@@ -1,7 +1,6 @@
 #!/bin/sh
 cat <<'EOF' >> ~/.bashrc
 
-
 # My custom bashrc settings
 
 # Environment variables
@@ -30,6 +29,7 @@ alias multitail='multitail --no-repeat -c'
 alias top='btop'
 alias lsl='ls -l'
 alias n='nvim'
+alias update='sudo apt update -y && sudo apt upgrade -y'
 
 # Remove a directory and all files
 alias rmd='/bin/rm  --recursive --force --verbose '
