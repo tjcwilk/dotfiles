@@ -1,5 +1,3 @@
-#!/bin/bash
-
 #!/usr/bin/env bash
 # =============================================================================
 # Toby's Ubuntu 25.04 Setup Script
@@ -10,55 +8,16 @@
 
 set -e
 
-# -----------------------------------------------------------------------------
-# Update the system
-# -----------------------------------------------------------------------------
-
 echo "========== Updating and upgrading system =========="
-sudo apt update -y
-sudo apt full-upgrade -y
-sudo apt autoremove -y
+sudo apt update && sudo apt full-upgrade -y
+sudo apt install -y software-properties-common apt-transport-https ca-certificates curl wget git unzip zip build-essential
 
-sudo apt install -y 
 
 # -----------------------------------------------------------------------------
 # Install essential tools
 # -----------------------------------------------------------------------------
 echo "========== Installing essential packages =========="
-
-sudo apt install -y \
-    vim \
-    neovim \
-    tree \
-    tmux \
-    neofetch \
-    curl \
-    btop \
-    multitail \
-    unzip \
-    zip \
-    jq \
-    ftop \
-    python3 \
-    python3-pip\
-    ncdu \
-    duf \
-    fzf \
-    zoxide \
-    progress \
-    unp \ 
-    software-properties-common \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    wget \
-    git \
-    build-essential\
-    nmap \
-    cifs-utils \
-    nodejs \
-    npm \
-    fastfetch \
+sudo apt install -y neovim tmux nmap cifs-utils python3 python3-pip nodejs npm golang-go alacritty btop fastfetch syncthing
 
 
 # -----------------------------------------------------------------------------
@@ -66,6 +25,7 @@ sudo apt install -y \
 # -----------------------------------------------------------------------------
 echo "========== Installing Obsidian =========="
 sudo snap install obsidian --classic
+
 
 # -----------------------------------------------------------------------------
 # Install VSCode
@@ -96,7 +56,6 @@ then
 else
     echo "VSCode is already installed."
 fi
-
 
 # -----------------------------------------------------------------------------
 # Install Tailscale
@@ -146,85 +105,50 @@ else
     echo "Brave Browser is already installed."
 fi
 
+# -----------------------------------------------------------------------------
+# Install lazygit & lazydocker
+# -----------------------------------------------------------------------------
+echo "========== Installing lazygit and lazydocker =========="
+LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep tag_name | cut -d '"' -f 4)
+LAZYDOCKER_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d '"' -f 4)
+
+# LazyGit
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_VERSION}/lazygit_$(uname -s)_$(uname -m).tar.gz"
+sudo tar xf lazygit.tar.gz -C /usr/local/bin lazygit && rm lazygit.tar.gz
+
+# LazyDocker
+curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/download/${LAZYDOCKER_VERSION}/lazydocker_$(uname -s)_$(uname -m).tar.gz"
+sudo tar xf lazydocker.tar.gz -C /usr/local/bin lazydocker && rm lazydocker.tar.gz
 
 # -----------------------------------------------------------------------------
 # Install Docker
 # -----------------------------------------------------------------------------
 echo "========== Installing Docker =========="
-if ! command -v docker &> /dev/null
-then
-    sudo apt install -y docker.io docker-compose
-    sudo systemctl enable docker --now
-    sudo usermod -aG docker "$USER"
-else
-    echo "Docker is already installed."
-fi
-
-
-# -----------------------------------------------------------------------------
-# Install lazygit
-# -----------------------------------------------------------------------------
-echo "========== Installing lazygit =========="
-
-if ! command -v lazygit &> /dev/null
-then
-    LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep tag_name | cut -d '"' -f 4)
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_VERSION}/lazygit_$(uname -s)_$(uname -m).tar.gz"
-    sudo tar xf lazygit.tar.gz -C /usr/local/bin lazygit && rm lazygit.tar.gz
-else
-    echo "lazygit is already installed."
-fi  
-
-
-# -----------------------------------------------------------------------------
-# Install lazydocker
-# -----------------------------------------------------------------------------
-echo "========== Installing lazydocker =========="
-if ! command -v lazydocker &> /dev/null
-then
-    LAZYDOCKER_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d '"' -f 4)
-    curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/download/${LAZYDOCKER_VERSION}/lazydocker_$(uname -s)_$(uname -m).tar.gz"
-    sudo tar xf lazydocker.tar.gz -C /usr/local/bin lazydocker && rm lazydocker.tar.gz
-else
-    echo "lazydocker is already installed."
-fi
-
+sudo apt install -y docker.io docker-compose
+sudo systemctl enable docker --now
+sudo usermod -aG docker "$USER"
 
 # -----------------------------------------------------------------------------
 # Install Starship prompt
 # -----------------------------------------------------------------------------
 echo "========== Installing Starship =========="
-if ! command -v lazydocker &> /dev/null
-then
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
-    echo 'eval "$(starship init bash)"' >> ~/.bashrc
-else
-    echo "Starship is already installed."
-fi
-
+curl -sS https://starship.rs/install.sh | sh -s -- -y
+echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
 # -----------------------------------------------------------------------------
 # Install Dropbox
 # -----------------------------------------------------------------------------
 echo "========== Installing Dropbox =========="
-if ! command -v dropbox &> /dev/null
-then
-    sudo apt install -y nautilus-dropbox || true
-else
-    echo "Dropbox is already installed."
-fi
-
+sudo apt install -y nautilus-dropbox || true
 
 # -----------------------------------------------------------------------------
-# Fonts and Themes
+# Configure shell shortcuts and aliases
 # -----------------------------------------------------------------------------
-echo "========== Installing NerdFonts and themes =========="
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts
-wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
-unzip -o CascadiaMono.zip && rm CascadiaMono.zip
-fc-cache -fv
-
+echo "========== Configuring shell aliases =========="
+cat << 'EOF' >> ~/.bash_aliases
+alias n='nvim'
+alias lsa='ls -al'
+EOF
 
 # -----------------------------------------------------------------------------
 # Mount network drives
@@ -263,78 +187,57 @@ sudo mount -a
 ln -sf /mnt/apollo-media ~/apollo-media
 ln -sf /mnt/apollo-toby ~/apollo-toby
 
+# -----------------------------------------------------------------------------
+# GNOME keyboard shortcuts
+# -----------------------------------------------------------------------------
+echo "========== Setting GNOME keyboard shortcuts =========="
 
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
+"['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/brave/', \
+'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/fastmail/', \
+'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chatgpt/']"
 
+# Brave Browser shortcut
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/brave/ name 'Open Brave'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/brave/ command 'brave-browser'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/brave/ binding '<Super>b'
 
+# Fastmail shortcut
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/fastmail/ name 'Fastmail'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/fastmail/ command 'brave-browser https://app.fastmail.com'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/fastmail/ binding '<Super>e'
 
-###############################################################################
-# Helper Functions
-###############################################################################
+# ChatGPT shortcut
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chatgpt/ name 'ChatGPT'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chatgpt/ command 'brave-browser https://chat.openai.com'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chatgpt/ binding '<Super>a'
 
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
+# -----------------------------------------------------------------------------
+# Fonts and Themes
+# -----------------------------------------------------------------------------
+echo "========== Installing NerdFonts and themes =========="
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+unzip -o CascadiaMono.zip && rm CascadiaMono.zip
+fc-cache -fv
 
-symlinkDotFiles(){
-    echo "Creating symbolic links"
-    DIR="$(cd "$(dirname "$0")" && pwd)"
+# -----------------------------------------------------------------------------
+# Text Expander
+# -----------------------------------------------------------------------------
+echo "========== Setting up text expander =========="
+cat << 'EOF' > ~/.tobys-shortcuts
+# Toby's Text Expander Shortcuts
+[xn]
+hello=Hello World!
+fname=Toby Wilkins
+phone=07741126321
+email=Toby@Properbutton.com
+EOF
 
-    echo "-> .tmux.conf"
-    ln -sf $DIR/.tmux.conf ~/.tmux.conf
-
-    echo "-> cheatsheet.md"
-    ln -sf $DIR/cheatsheet.md ~/cheatsheet.md
-
-    echo "-> tmux new shortcut"
-    ln -sf $DIR/tmux-new.sh ~/tmux-new.sh
-
-    echo "-> tmux attach shortcut"
-    ln -sf $DIR/tmux-attach.sh ~/tmux-attach.sh
-}
-
-
-###############################################################################
-# Install Functions
-###############################################################################
-
-
-installGit(){
-    if command_exists git; then
-      echo "git already installed"
-      return
-    fi
-
-    echo "installing and configuring git"
-    sudo apt install -y git
-    git config --global user.name "Toby W"
-    git config --global user.email "toby@null"
-    git config --global core.editor "nvim"
-}
-
-
-
-
-
-##########################################################
-# Run
-##########################################################
-
-
-
-
-# create dotfile symlinks
-symlinkDotFiles
-
-# Install functions
-installGit
-installStarship
-installVimPlug
-
-# Source files
-echo "Sourcing files"
-tmux source ~/.tmux.conf
-source ~/.bashrc
-
-echo "!! DONE !!"
-echo "NEXT - consider running the bashrc update script"
+# -----------------------------------------------------------------------------
+# Finished
+# -----------------------------------------------------------------------------
+echo "✅ Setup complete! Please log out and back in for all changes to take effect."
+echo "Docker group and GNOME shortcuts will work after re-login."
 

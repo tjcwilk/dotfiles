@@ -27,8 +27,9 @@ alias less='less -R'
 alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
-alias top='htop'
+alias top='btop'
 alias lsl='ls -l'
+alias n='nvim'
 
 # Remove a directory and all files
 alias rmd='/bin/rm  --recursive --force --verbose '
@@ -63,8 +64,6 @@ eval "$(zoxide init bash)"
 # alias to cleanup unused docker containers, images, networks, and volumes
 alias docker-clean='docker container prune -f ; docker image prune -f ; docker network prune -f ; docker volume prune -f '
 
-# set up starship
-eval "$(starship init bash)"
 
 #######################################################
 # SPECIAL FUNCTIONS
