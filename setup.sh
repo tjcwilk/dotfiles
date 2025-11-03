@@ -323,12 +323,12 @@ installGit(){
 
 
 # create dotfile symlinks
-symlinkDotFiles
+#symlinkDotFiles
 
 # Install functions
-installGit
-installStarship
-installVimPlug
+#installGit
+#installStarship
+#installVimPlug
 
 # Source files
 echo "Sourcing files"
