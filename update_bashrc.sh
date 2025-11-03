@@ -31,6 +31,9 @@ alias lsl='ls -l'
 alias n='nvim'
 alias update='sudo apt update -y && sudo apt full-upgrade -y'
 
+# git shortcuts
+alias gcam='git commit -a -m'
+
 # Remove a directory and all files
 alias rmd='/bin/rm  --recursive --force --verbose '
 
