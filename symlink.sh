@@ -16,3 +16,6 @@ ln -sf $DIR/tmux-new.sh ~/tmux-new.sh
 
 echo "-> tmux attach shortcut"
 ln -sf $DIR/tmux-attach.sh ~/tmux-attach.sh
+
+echo "-> Espanso text expander"
+ln -sf $DIR/espanso/match.yml ~/.config/espanso/match/match.yml
