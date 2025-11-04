@@ -1,0 +1,8 @@
+matches:
+  - trigger: ":xnsig"
+    replace: "Kind regards,\nToby"
+  - trigger: "xnphone"
+    replace: "07741126321"
+  - trigger: "xnaddr"
+    replace: "4 Caine Square, Cheltenham. GL51 0GB"
+
