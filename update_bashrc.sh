@@ -32,7 +32,10 @@ alias n='nvim'
 alias update='sudo apt update -y && sudo apt full-upgrade -y'
 
 # git shortcuts
+alias g='git'
 alias gcam='git commit -a -m'
+alias gpl='git pull'
+alias gps='git push'
 
 # Remove a directory and all files
 alias rmd='/bin/rm  --recursive --force --verbose '
