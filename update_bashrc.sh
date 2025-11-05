@@ -6,6 +6,8 @@ cat <<'EOF' >> ~/.bashrc
 # Environment variables
 export STARSHIP_CONFIG=~/repos/dotfiles/starship/starship.toml
 
+set completion-ignore-case on
+
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'
