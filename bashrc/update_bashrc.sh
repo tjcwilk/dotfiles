@@ -4,7 +4,7 @@ cat <<'EOF' >> ~/.bashrc
 # My custom bashrc settings
 
 # Environment variables
-export STARSHIP_CONFIG=~/repos/dotfiles/starship/starship.toml
+export EDITOR='nvim'
 
 set completion-ignore-case on
 

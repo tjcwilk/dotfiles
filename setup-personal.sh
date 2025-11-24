@@ -1,54 +1,4 @@
 #!/usr/bin/env bash
-# =============================================================================
-# Toby's Ubuntu 25.04 Setup Script
-# =============================================================================
-# This script sets up a brand new Ubuntu 25.04 system with all required tools,
-# configurations, themes, and shortcuts as specified.
-# =============================================================================
-
-set -e
-
-echo "========== Updating and upgrading system =========="
-sudo apt update && sudo apt full-upgrade -y
-sudo apt install -y software-properties-common apt-transport-https ca-certificates curl wget git unzip zip build-essential
-
-
-# -----------------------------------------------------------------------------
-# Install essential tools
-# -----------------------------------------------------------------------------
-echo "========== Installing essential packages =========="
-sudo apt install -y \
-  neovim \
-  tmux \
-  nmap \
-  cifs-utils \
-  python3 \
-  python3-pip \
-  nodejs \
-  npm \
-  golang-go \
-  btop \
-  fastfetch \
-  syncthing \
-  tree \
-  multitail \
-  unzip \
-  zip \
-  jq \
-  ncdu \
-  duf \
-  fzf \
-  zoxide \
-  progress \
-  unp \ 
-  software-properties-common \
-  apt-transport-https \
-  ca-certificates \
-  curl \
-  wget \
-  git \
-  build-essential\
-  lsd
 
 # -----------------------------------------------------------------------------
 # Install obsidian
@@ -135,37 +85,40 @@ else
     echo "Brave Browser is already installed."
 fi
 
-
 # -----------------------------------------------------------------------------
-# Install Docker
+# Install Espanso text expander
 # -----------------------------------------------------------------------------
-echo "========== Installing Docker =========="
-sudo apt install -y docker.io docker-compose
-sudo systemctl enable docker --now
-sudo usermod -aG docker "$USER"
 
+echo "========== Installing Espanso =========="
 
-# -----------------------------------------------------------------------------
-# Install lazygit & lazydocker
-# -----------------------------------------------------------------------------
-echo "========== Installing lazygit and lazydocker =========="
-LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep tag_name | cut -d '"' -f 4)
-LAZYDOCKER_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d '"' -f 4)
+if ! command -v espanso &> /dev/null
+then
+  echo "Espanso is not installed. Installing now..."
 
-# LazyGit
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_VERSION}/lazygit_$(uname -s)_$(uname -m).tar.gz"
-sudo tar xf lazygit.tar.gz -C /usr/local/bin lazygit && rm lazygit.tar.gz
+  if command -v snap &> /dev/null
+  then
+    sudo snap install espanso --classic
+  else
+    # Fallback to official installer script (runs as current user)
+    curl -fsSL https://updates.espanso.org/install.sh | sh
+  fi
 
-# LazyDocker
-curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/download/${LAZYDOCKER_VERSION}/lazydocker_$(uname -s)_$(uname -m).tar.gz"
-sudo tar xf lazydocker.tar.gz -C /usr/local/bin lazydocker && rm lazydocker.tar.gz
+  # Start espanso (user service); if systemd --user is available, use it
+  if command -v systemctl &> /dev/null && systemctl --user >/dev/null 2>&1
+  then
+    espanso restart || espanso start || true
+  else
+    # Try starting without systemd (best-effort)
+    espanso start >/dev/null 2>&1 || true
+  fi
 
-# -----------------------------------------------------------------------------
-# Install Starship prompt
-# -----------------------------------------------------------------------------
-echo "========== Installing Starship =========="
-curl -sS https://starship.rs/install.sh | sh -s -- -y
-echo 'eval "$(starship init bash)"' >> ~/.bashrc
+  echo "Espanso installation complete."
+else
+  echo "Espanso is already installed."
+fi
+
+echo "-> Espanso text expander"
+ln -sf $DIR/espanso/match.yml ~/.config/espanso/match/match.yml
 
 
 # -----------------------------------------------------------------------------
@@ -208,19 +161,14 @@ ln -sf /mnt/apollo-toby ~/apollo-toby
 # -----------------------------------------------------------------------------
 # Fonts and Themes
 # -----------------------------------------------------------------------------
-echo "========== Installing NerdFonts =========="
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts
-wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
-unzip -o CascadiaMono.zip && rm CascadiaMono.zip
+
 fc-cache -fv
 
-echo "========== Installing NCatpuccine theme for ubuntu terminal=========="
+echo "========== Installing Catpuccine theme for ubuntu terminal=========="
 curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v1.0.0/install.py | python3 -
+
 
 # -----------------------------------------------------------------------------
 # Finished
 # -----------------------------------------------------------------------------
-echo "✅ Setup complete! Please log out and back in for all changes to take effect."
-echo "Docker group and GNOME shortcuts will work after re-login."
-
+echo "✅ Setup complete!"
