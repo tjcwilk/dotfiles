@@ -215,6 +215,9 @@ wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Cascadi
 unzip -o CascadiaMono.zip && rm CascadiaMono.zip
 fc-cache -fv
 
+echo "========== Installing NCatpuccine theme for ubuntu terminal=========="
+curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v1.0.0/install.py | python3 -
+
 # -----------------------------------------------------------------------------
 # Finished
 # -----------------------------------------------------------------------------
