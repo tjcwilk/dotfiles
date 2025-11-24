@@ -17,7 +17,38 @@ sudo apt install -y software-properties-common apt-transport-https ca-certificat
 # Install essential tools
 # -----------------------------------------------------------------------------
 echo "========== Installing essential packages =========="
-sudo apt install -y neovim tmux nmap cifs-utils python3 python3-pip nodejs npm golang-go alacritty btop fastfetch syncthing
+sudo apt install -y \
+  neovim \
+  tmux \
+  nmap \
+  cifs-utils \
+  python3 \
+  python3-pip \
+  nodejs \
+  npm \
+  golang-go \
+  btop \
+  fastfetch \
+  syncthing \
+  tree \
+  multitail \
+  unzip \
+  zip \
+  jq \
+  ncdu \
+  duf \
+  fzf \
+  zoxide \
+  progress \
+  unp \ 
+  software-properties-common \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  wget \
+  git \
+  build-essential\
+
 
 
 # -----------------------------------------------------------------------------
