@@ -1,0 +1,8 @@
+.tmux/plugins/*
+!.tmux/plugins/tpm
+
+
+*.swp
+.vim/.netrwhist
+
+.tmux/resurrect

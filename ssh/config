@@ -1,0 +1,19 @@
+Host personal.github.com
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/personal
+
+Host work.github.com
+    User git	
+    HostName github.com
+    IdentityFile  ~/.ssh/work
+
+Host wireguard
+    HostName wireguard.tobynet.local 
+    User ubuntu
+    IdentityFile ~/.ssh/tjcwilk_aws.pem
+
+Host tobydev
+    HostName tobydev.tobynet.local
+    User ubuntu
+    IdentityFile ~/.ssh/tjcwilk_aws.pem
