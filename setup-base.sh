@@ -11,13 +11,15 @@ echo "========== Running base setup =========="
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # mark a point in the bashrc file, after which all customerizations will be added.
-echo "# My custom bashrc settings" >> ~/.bashrc
+if ! grep -q "# My custom bashrc settings" ~/.bashrc; then
+    echo "# My custom bashrc settings" >> ~/.bashrc
+fi
 
 set -e
 
 echo "========== Updating and upgrading system =========="
 sudo apt update && sudo apt full-upgrade -y
-sudo apt install -y 
+
 
 # -----------------------------------------------------------------------------
 # Install essential tools
@@ -33,7 +35,6 @@ sudo apt install -y \
     unzip \
     zip \
     build-essential \
-    neovim \
     tmux \
     nmap \
     cifs-utils \
@@ -47,8 +48,6 @@ sudo apt install -y \
     syncthing \
     tree \
     multitail \
-    unzip \
-    zip \
     jq \
     ncdu \
     duf \
@@ -93,6 +92,7 @@ mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
 wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
 unzip -o CascadiaMono.zip && rm CascadiaMono.zip
+fc-cache -fv
 
 
 # -----------------------------------------------------------------------------
@@ -100,8 +100,56 @@ unzip -o CascadiaMono.zip && rm CascadiaMono.zip
 # -----------------------------------------------------------------------------
 echo "========== Installing Starship =========="
 curl -sS https://starship.rs/install.sh | sh -s -- -y
-echo 'eval "$(starship init bash)"' >> ~/.bashrc
-echo "export STARSHIP_CONFIG='$DIR/starship/starship.toml'" >> ~/.bashrc
+if ! grep -q "starship init bash" ~/.bashrc; then
+    echo 'eval "$(starship init bash)"' >> ~/.bashrc
+fi
+# Symlink starship config
+mkdir -p ~/.config
+ln -sf "$DIR/starship/starship.toml" ~/.config/starship.toml
+
+
+# -----------------------------------------------------------------------------
+# Configure Neovim
+# -----------------------------------------------------------------------------
+
+echo "========== Installing LazyVim (Neovim configuration) =========="
+
+# ensure nvim is available
+if ! command -v nvim >/dev/null 2>&1; then
+    echo "Installing Neovim (latest stable)..."
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux64.tar.gz
+    rm nvim-linux64.tar.gz
+    # Add to path if not already there (assuming /opt/nvim-linux64/bin needs to be in PATH, or symlink)
+    # Easiest is to symlink the binary to /usr/local/bin
+    sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
+fi
+
+# Now that nvim is installed (or was already there), setup LazyVim
+echo "========== Installing LazyVim (Neovim configuration) =========="
+mkdir -p "$HOME/.config"
+
+# backup existing config if present
+if [ -d "$HOME/.config/nvim" ] && [ "$(ls -A "$HOME/.config/nvim")" ]; then
+    BACKUP="$HOME/.config/nvim.bak.$(date +%s)"
+    echo "Backing up existing ~/.config/nvim to $BACKUP"
+    mv "$HOME/.config/nvim" "$BACKUP"
+fi
+
+# clone LazyVim starter (shallow)
+echo "Cloning LazyVim starter into ~/.config/nvim"
+git clone --depth 1 https://github.com/LazyVim/starter ~/.config/nvim
+
+# If this repo contains a custom nvim folder, merge it into the LazyVim config
+if [ -d "$DIR/nvim" ]; then
+    echo "Merging custom nvim files from $DIR/nvim into ~/.config/nvim"
+    rsync -a --exclude='.git' "$DIR/nvim/" ~/.config/nvim/
+fi
+
+# Bootstrap plugins (headless). This will download and compile plugins.
+echo "Bootstrapping LazyVim plugins (headless). This may take a while..."
+nvim --headless -c 'Lazy! sync' -c 'qa' || echo "Warning: headless plugin sync failed; you can run 'nvim' manually to finish setup."
 
 
 # -----------------------------------------------------------------------------

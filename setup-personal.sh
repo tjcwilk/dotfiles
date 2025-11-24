@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+set -e
 # -----------------------------------------------------------------------------
 # Install obsidian
 # -----------------------------------------------------------------------------
@@ -118,7 +120,8 @@ else
 fi
 
 echo "-> Espanso text expander"
-ln -sf $DIR/espanso/match.yml ~/.config/espanso/match/match.yml
+mkdir -p ~/.config/espanso/match
+ln -sf "$DIR/espanso/match.yml" ~/.config/espanso/match/match.yml
 
 
 # -----------------------------------------------------------------------------
@@ -132,9 +135,13 @@ fi
 
 # Create credentials file if missing
 if [ ! -f ~/.apollo-credentials ]; then
-  cat << 'EOF' > ~/.apollo-credentials
-username=your-username
-password=your-password
+  echo "Creating ~/.apollo-credentials..."
+  read -p "Enter username for Apollo share: " APOLLO_USER
+  read -s -p "Enter password for Apollo share: " APOLLO_PASS
+  echo ""
+  cat << EOF > ~/.apollo-credentials
+username=${APOLLO_USER}
+password=${APOLLO_PASS}
 EOF
   chmod 600 ~/.apollo-credentials
 fi
@@ -153,7 +160,8 @@ fi
 
 systemctl daemon-reload
 
-sudo mount -a
+sudo mount /mnt/apollo-media || true
+sudo mount /mnt/apollo-toby || true
 
 ln -sf /mnt/apollo-media ~/apollo-media
 ln -sf /mnt/apollo-toby ~/apollo-toby
