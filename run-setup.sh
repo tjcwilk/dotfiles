@@ -48,8 +48,7 @@ sudo apt install -y \
   wget \
   git \
   build-essential\
-
-
+  lsd
 
 # -----------------------------------------------------------------------------
 # Install obsidian

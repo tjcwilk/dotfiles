@@ -32,6 +32,7 @@ alias top='btop'
 alias lsl='ls -l'
 alias n='nvim'
 alias update='sudo apt update -y && sudo apt full-upgrade -y'
+alias ls='lsd'
 
 # git shortcuts
 alias g='git'
