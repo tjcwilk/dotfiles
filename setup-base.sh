@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Toby's Ubuntu Setup Script
+# Setup Base
 # =============================================================================
-# This script sets up a brand new Ubuntu system with all required tools,
-# configurations, themes, and shortcuts as specified.
+# This is the first, base instillation script that you should run.
+# These are my core basic ubuntu configurations, that should work on
+# either a work or personal computer. They should also work on 
+# ubuntu server.
 # =============================================================================
 
 echo "========== Running base setup =========="

@@ -1,6 +1,3 @@
-#!/bin/sh
-cat <<'EOF' >> ~/.bashrc
-
 # My custom bashrc settings
 
 # Environment variables
@@ -32,7 +29,13 @@ alias top='btop'
 alias lsl='ls -l'
 alias n='nvim'
 alias update='sudo apt update -y && sudo apt full-upgrade -y'
-alias ls='lsd'
+
+# Safety check for lsd
+if command -v lsd &> /dev/null; then
+    alias ls='lsd'
+else
+    alias ls='ls --color=auto'
+fi
 
 # git shortcuts
 alias g='git'
@@ -68,7 +71,9 @@ alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
 
 # zoxide shortcut
-eval "$(zoxide init bash)"
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+fi
 
 # alias to cleanup unused docker containers, images, networks, and volumes
 alias docker-clean='docker container prune -f ; docker image prune -f ; docker network prune -f ; docker volume prune -f '
@@ -113,57 +118,35 @@ ftext() {
 	grep -iIHrn --color=always "$1" . | less -r
 }
 
-# Copy file with a progress bar
+# Copy file with a progress bar (using rsync)
 cpp() {
-    set -e
-    strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
-    awk '{
-        count += $NF
-        if (count % 10 == 0) {
-            percent = count / total_size * 100
-            printf "%3d%% [", percent
-            for (i=0;i<=percent;i++)
-                printf "="
-            printf ">"
-            for (i=percent;i<100;i++)
-                printf " "
-            printf "]\r"
-        }
-    }
-    END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+    rsync -ah --progress "$1" "$2"
 }
 
 
-# Automatically do an ls after each cd, z, or zoxide
+# Automatically do an ls after each cd, z, or zoxide (Interactive only)
 cd ()
 {
-	if [ -n "$1" ]; then
-		builtin cd "$@" && ls
-	else
-		builtin cd ~ && ls
-	fi
+    if [[ $- == *i* ]]; then
+        if [ -n "$1" ]; then
+            builtin cd "$@" && ls
+        else
+            builtin cd ~ && ls
+        fi
+    else
+        builtin cd "$@"
+    fi
 }
 
 # IP address lookup
 alias whatismyip="whatsmyip"
 function whatsmyip () {
     # Internal IP Lookup.
-    if command -v ip &> /dev/null; then
-        echo -n "Internal IP: "
-        ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
-    else
-        echo -n "Internal IP: "
-        ifconfig wlan0 | grep "inet " | awk '{print $2}'
-    fi
+    echo -n "Internal IP: "
+    ip route get 1.1.1.1 | awk '{print $7; exit}'
 
     # External IP Lookup
     echo -n "External IP: "
     curl -s ifconfig.me
+    echo ""
 }
-
-
-EOF
-
-
-
-

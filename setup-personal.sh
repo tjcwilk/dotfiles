@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# =============================================================================
+# Setup Personal
+# =============================================================================
+# This script should be run after setup-base.sh. It twill install
+# tools and applications designed for my personal computer use, not work.
+# It will also only work on a desktop environment of ubuntu, not a server
+# =============================================================================
+
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 set -e
