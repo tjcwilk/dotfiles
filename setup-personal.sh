@@ -133,6 +133,22 @@ ln -sf "$DIR/espanso/match.yml" ~/.config/espanso/match/match.yml
 
 
 # -----------------------------------------------------------------------------
+# Configure Neovim
+# -----------------------------------------------------------------------------
+echo "========== Configuring Neovim =========="
+
+if ! command -v nvim &> /dev/null
+then
+    echo "Neovim is not installed. Skipping configuration."
+else
+    echo "Neovim is installed. Configuring now..."
+    mkdir -p ~/.config
+    ln -sf "$DIR/nvim" ~/.config/nvim
+    echo "Neovim configuration complete."
+fi
+
+
+# -----------------------------------------------------------------------------
 # Mount network drives
 # -----------------------------------------------------------------------------
 echo "========== Configuring CIFS network drives =========="
