@@ -155,17 +155,6 @@ nvim --headless -c 'Lazy! sync' -c 'qa' || echo "Warning: headless plugin sync f
 
 
 # -----------------------------------------------------------------------------
-# Set up symlinks
-# -----------------------------------------------------------------------------
-echo "========== Symlink inputrc =========="
-ln -sf $DIR/inputrc ~/.inputrc
-
-echo "========== Symlink tmux conf =========="
-echo "-> .tmux.conf"
-ln -sf $DIR/.tmux.conf ~/.tmux.conf
-
-
-# -----------------------------------------------------------------------------
 # Finished
 # -----------------------------------------------------------------------------
 echo "✅ Setup complete!"
