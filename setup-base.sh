@@ -11,17 +11,10 @@
 echo "========== Running base setup =========="
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# mark a point in the bashrc file, after which all customerizations will be added.
-if ! grep -q "# My custom bashrc settings" ~/.bashrc; then
-    echo "# My custom bashrc settings" >> ~/.bashrc
-fi
-
 set -e
 
 echo "========== Updating and upgrading system =========="
 sudo apt update && sudo apt full-upgrade -y
-
 
 # -----------------------------------------------------------------------------
 # Install essential tools
