@@ -8,3 +8,4 @@
 .tmux/resurrect
 
 nvim/plugged/
+starship/.codex
