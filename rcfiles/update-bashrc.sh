@@ -14,10 +14,10 @@ if grep -q "# My custom bashrc settings" ~/.bashrc; then
 fi
 
 echo "Appending new custom settings..."
-if [ -f "$DIR/rcfiles/bashrc_content.sh" ]; then
-    cat "$DIR/rcfiles/bashrc_content.sh" >> ~/.bashrc
+if [ -f "$DIR/bashrc-content.txt" ]; then
+    cat "$DIR/bashrc-content.txt" >> ~/.bashrc
     echo "Successfully updated ~/.bashrc"
 else
-    echo "Error: bashrc_content.sh not found in $DIR"
+    echo "Error: bashrc-content.txt not found in $DIR"
     exit 1
 fi
