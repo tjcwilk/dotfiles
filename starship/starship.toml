@@ -1,58 +1,93 @@
-# Starship prompt - minimal / sharp / works everywhere
-add_newline = false
+# Minimal, modern Starship prompt with no Nerd Font dependency.
+# Uses plain ASCII symbols so it renders cleanly on locked-down work machines.
+
+add_newline = true
+scan_timeout = 10
+command_timeout = 1000
 
 format = """
-$username$hostname $directory$git_branch$git_status$cmd_duration
+$directory$git_branch$git_status$fill$cmd_duration
 $character """
 
-scan_timeout = 10
+[fill]
+symbol = " "
 
-# Username
-[username]
-show_always = true
-style_user = "bold blue"
-style_root = "bold red"
-format = "[$user]($style)"
-disabled = false
-
-# Hostname
-[hostname]
-ssh_only = false
-style = "bold blue"
-format = "[@$hostname]($style) "
-disabled = false
-
-# Current directory
 [directory]
-style = "bold cyan"
-truncation_length = 4
-truncation_symbol = ".../"
-read_only = "[ro]"
-read_only_style = "red"
-format = "[$path]($style)[$read_only]($read_only_style) "
-disabled = false
+style = "bold #7aa2f7"
+truncation_length = 3
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
+read_only = " [locked]"
+read_only_style = "dimmed red"
+format = "[$path]($style)[$read_only]($read_only_style)"
 
-# Git branch
 [git_branch]
-symbol = ""
-style = "bold purple"
-format = "[git:$branch]($style) "
+symbol = " on "
+style = "#a78bfa"
+format = "[$symbol$branch]($style)"
+only_attached = false
 
-# Git status (changes, ahead/behind etc)
 [git_status]
-style = "yellow"
-format = "([$all_status$ahead_behind]($style)) "
+style = "#f6c177"
+format = " [($all_status$ahead_behind)]($style)"
+conflicted = "="
+ahead = ">"
+behind = "<"
+diverged = "<>"
+up_to_date = ""
+untracked = "new "
+stashed = "$"
+modified = "edit "
+staged = "stage "
+renamed = "r"
+deleted = "x"
 
-# Command duration
 [cmd_duration]
-min_time = 500
-style = "bold yellow"
-format = "[took $duration]($style) "
+min_time = 800
+style = "dimmed #9aa5ce"
+format = "[took $duration]($style)"
+show_milliseconds = false
 
-# Prompt character
 [character]
-success_symbol = "[>](bold green)"
-error_symbol = "[x](bold red)"
-vicmd_symbol = "[<](bold green)"
-format = "$symbol "
-disabled = false
+success_symbol = "[->](bold #98c379)"
+error_symbol = "[->](bold #e06c75)"
+vicmd_symbol = "[<-](bold #56b6c2)"
+
+[hostname]
+disabled = true
+
+[username]
+disabled = true
+
+[package]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+[java]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[terraform]
+disabled = true
