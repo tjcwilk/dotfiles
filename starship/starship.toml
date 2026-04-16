@@ -29,18 +29,18 @@ only_attached = false
 
 [git_status]
 style = "#f6c177"
-format = " [($all_status$ahead_behind)]($style)"
-conflicted = "="
-ahead = ">"
-behind = "<"
-diverged = "<>"
+format = " [$all_status$ahead_behind]($style)"
+conflicted = "\\[conflict\\]"
+ahead = "\\[ahead\\]"
+behind = "\\[behind\\]"
+diverged = "\\[diverged\\]"
 up_to_date = ""
-untracked = "new "
-stashed = "$"
-modified = "edit "
-staged = "stage "
-renamed = "r"
-deleted = "x"
+untracked = "\\[new\\]"
+stashed = "\\[stashed\\]"
+modified = "\\[edit\\]"
+staged = "\\[staged\\]"
+renamed = "\\[renamed\\]"
+deleted = "\\[deleted\\]"
 
 [cmd_duration]
 min_time = 800
