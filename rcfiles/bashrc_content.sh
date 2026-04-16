@@ -37,6 +37,11 @@ else
     alias ls='ls --color=auto'
 fi
 
+# auto ls on directory change
+cd() {
+  builtin cd "$@" && ls
+}
+
 # git shortcuts
 alias g='git'
 alias gcam='git commit -a -m'
