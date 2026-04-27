@@ -14,7 +14,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 set -e
 
 echo "========== Updating and upgrading system =========="
-sudo apt update && sudo apt full-upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 # -----------------------------------------------------------------------------
 # Install essential tools
@@ -37,10 +37,8 @@ sudo apt install -y \
   python3-pip \
   nodejs \
   npm \
-  golang-go \
   btop \
   fastfetch \
-  syncthing \
   tree \
   multitail \
   jq \
